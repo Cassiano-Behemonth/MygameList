@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun FormScreen(
-    games: SnapshotStateList<Game>,
+    games: SnapshotStateList<com.example.mygamelist.Game>,
     editIndex: Int?,
     onSave: () -> Unit,
     onCancel: () -> Unit

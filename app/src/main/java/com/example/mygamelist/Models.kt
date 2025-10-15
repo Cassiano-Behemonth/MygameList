@@ -16,5 +16,6 @@ enum class GameStatus {
 
 data class User(
     val username: String,
-    val password: String
+    val password: String,
+    val id: Int = 0
 )
