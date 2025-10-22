@@ -1,6 +1,5 @@
 package com.example.mygamelist.ui.games
 
-import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -14,7 +13,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
@@ -24,7 +22,6 @@ import com.example.mygamelist.GameTopAppBar
 import com.example.mygamelist.GoldenYellow
 import com.example.mygamelist.Yellow
 import com.example.mygamelist.blackGradient
-
 
 @Composable
 fun LoginScreen(
@@ -46,7 +43,6 @@ fun LoginScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-
             Box(
                 modifier = Modifier
                     .size(120.dp)
@@ -90,7 +86,6 @@ fun LoginScreen(
             )
 
             Spacer(modifier = Modifier.height(16.dp))
-
 
             OutlinedTextField(
                 value = password,
@@ -136,7 +131,6 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-
             OutlinedButton(
                 onClick = onGoToRegister,
                 modifier = Modifier
@@ -169,7 +163,6 @@ fun RegisterScreen(
 ) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    val context = LocalContext.current
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -239,13 +232,7 @@ fun RegisterScreen(
                 }
 
                 Button(
-                    onClick = {
-                        if (username.isNotBlank() && password.isNotBlank()) {
-                            onRegister(username.trim(), password.trim())
-                        } else {
-                            Toast.makeText(context, "Preencha todos os campos!", Toast.LENGTH_SHORT).show()
-                        }
-                    },
+                    onClick = { onRegister(username.trim(), password.trim()) },
                     modifier = Modifier
                         .weight(1f)
                         .height(48.dp)

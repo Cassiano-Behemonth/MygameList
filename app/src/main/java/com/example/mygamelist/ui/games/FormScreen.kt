@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -16,36 +15,32 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.mygamelist.Black
-import com.example.mygamelist.CompletedGreenBorder
-import com.example.mygamelist.DarkGray
-import com.example.mygamelist.GameTopAppBar
-import com.example.mygamelist.GoldenYellow
-import com.example.mygamelist.InProgressBlueBorder
-import com.example.mygamelist.Yellow
-import com.example.mygamelist.data.local.Game
+import com.example.mygamelist.*
+import com.example.mygamelist.data.local.GameEntity
 import com.example.mygamelist.data.local.GameStatus
-
 
 @Composable
 fun FormScreen(
-    games: SnapshotStateList<Game>,
-    editIndex: Int?,
-    onSave: () -> Unit,
+    currentUserId: Int,
+    editGame: GameEntity?,
+    onSave: (String, String, Int, Int, Int, GameStatus) -> Unit,
     onCancel: () -> Unit
 ) {
     val context = LocalContext.current
-    var name by remember { mutableStateOf(editIndex?.let { games[it].name } ?: "") }
-    var description by remember { mutableStateOf(editIndex?.let { games[it].description } ?: "") }
-    var achievementsCompleted by remember { mutableStateOf(editIndex?.let { games[it].achievementsCompleted.toString() } ?: "0") }
-    var totalAchievements by remember { mutableStateOf(editIndex?.let { games[it].totalAchievements.toString() } ?: "0") }
-    var completionPercentage by remember { mutableStateOf(editIndex?.let { games[it].completionPercentage.toString() } ?: "0") }
-    var selectedStatus by remember { mutableStateOf(editIndex?.let { games[it].status } ?: GameStatus.IN_PROGRESS) }
 
-    Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        GameTopAppBar(if (editIndex != null) "EDITAR JOGO" else "NOVO JOGO")
+    var name by remember { mutableStateOf(editGame?.name ?: "") }
+    var description by remember { mutableStateOf(editGame?.description ?: "") }
+    var achievementsCompleted by remember { mutableStateOf(editGame?.achievementsCompleted?.toString() ?: "0") }
+    var totalAchievements by remember { mutableStateOf(editGame?.totalAchievements?.toString() ?: "0") }
+    var completionPercentage by remember { mutableStateOf(editGame?.completionPercentage?.toString() ?: "0") }
+    var selectedStatus by remember {
+        mutableStateOf(
+            editGame?.status?.let { GameStatus.valueOf(it) } ?: GameStatus.IN_PROGRESS
+        )
+    }
+
+    Column(modifier = Modifier.fillMaxSize()) {
+        GameTopAppBar(if (editGame != null) "EDITAR JOGO" else "NOVO JOGO")
 
         LazyColumn(
             modifier = Modifier
@@ -151,9 +146,7 @@ fun FormScreen(
             item { Spacer(modifier = Modifier.height(16.dp)) }
 
             item {
-                Column(
-                    modifier = Modifier.fillMaxWidth()
-                ) {
+                Column(modifier = Modifier.fillMaxWidth()) {
                     Text(
                         text = "STATUS DO JOGO",
                         style = MaterialTheme.typography.bodyLarge,
@@ -222,22 +215,14 @@ fun FormScreen(
                                 val totalAchievementsInt = totalAchievements.toIntOrNull() ?: 0
                                 val completionPercentageInt = completionPercentage.toIntOrNull() ?: 0
 
-                                val newGame = Game(
-                                    name = name.trim(),
-                                    description = description.trim(),
-                                    achievementsCompleted = achievementsCompletedInt,
-                                    totalAchievements = totalAchievementsInt,
-                                    completionPercentage = completionPercentageInt,
-                                    status = selectedStatus
+                                onSave(
+                                    name,
+                                    description,
+                                    achievementsCompletedInt,
+                                    totalAchievementsInt,
+                                    completionPercentageInt,
+                                    selectedStatus
                                 )
-
-                                if (editIndex != null) {
-                                    games[editIndex] = newGame
-                                } else {
-                                    games.add(newGame)
-                                }
-                                Toast.makeText(context, "Jogo salvo com sucesso!", Toast.LENGTH_SHORT).show()
-                                onSave()
                             } else {
                                 Toast.makeText(context, "Preencha pelo menos nome e descrição!", Toast.LENGTH_SHORT).show()
                             }
