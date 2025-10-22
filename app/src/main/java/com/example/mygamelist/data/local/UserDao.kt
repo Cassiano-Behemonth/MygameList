@@ -1,4 +1,4 @@
-package com.example.mygamelist
+package com.example.mygamelist.data.local
 
 import androidx.room.Dao
 import androidx.room.Insert

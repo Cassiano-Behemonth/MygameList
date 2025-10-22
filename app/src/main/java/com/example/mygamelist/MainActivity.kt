@@ -25,8 +25,19 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.mygamelist.toGame
-import com.example.mygamelist.toUser
+import com.example.mygamelist.data.local.Game
+import com.example.mygamelist.data.local.GameDao
+import com.example.mygamelist.data.local.GameEntity
+import com.example.mygamelist.data.local.GameStatus
+import com.example.mygamelist.data.local.MyGameListDatabase
+import com.example.mygamelist.data.local.User
+import com.example.mygamelist.data.local.UserEntity
+import com.example.mygamelist.data.local.toGame
+import com.example.mygamelist.data.local.toUser
+import com.example.mygamelist.ui.games.HomeScreen
+import com.example.mygamelist.ui.games.LoginScreen
+import com.example.mygamelist.ui.games.ProfileScreen
+import com.example.mygamelist.ui.games.RegisterScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,9 +90,17 @@ fun AppNavigation() {
                             navController.navigate("home") {
                                 popUpTo("login") { inclusive = true }
                             }
-                            Toast.makeText(context, "Login realizado com sucesso!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                context,
+                                "Login realizado com sucesso!",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         } else {
-                            Toast.makeText(context, "Usuário ou senha inválidos", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                context,
+                                "Usuário ou senha inválidos",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 },
@@ -99,7 +118,8 @@ fun AppNavigation() {
                         } else {
                             val newUser = UserEntity(username = username, password = password)
                             userDao.insertUser(newUser)
-                            Toast.makeText(context, "Usuário cadastrado!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Usuário cadastrado!", Toast.LENGTH_SHORT)
+                                .show()
                             navController.popBackStack()
                         }
                     }
@@ -386,9 +406,11 @@ fun FormScreenWithDB(
                                         id = editGame?.id ?: 0,
                                         name = name.trim(),
                                         description = description.trim(),
-                                        achievementsCompleted = achievementsCompleted.toIntOrNull() ?: 0,
+                                        achievementsCompleted = achievementsCompleted.toIntOrNull()
+                                            ?: 0,
                                         totalAchievements = totalAchievements.toIntOrNull() ?: 0,
-                                        completionPercentage = completionPercentage.toIntOrNull() ?: 0,
+                                        completionPercentage = completionPercentage.toIntOrNull()
+                                            ?: 0,
                                         status = selectedStatus.name,
                                         userId = currentUserId
                                     )

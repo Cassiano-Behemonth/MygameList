@@ -1,4 +1,4 @@
-package com.example.mygamelist
+package com.example.mygamelist.ui.games
 
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
@@ -16,11 +16,20 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.mygamelist.Black
+import com.example.mygamelist.CompletedGreenBorder
+import com.example.mygamelist.DarkGray
+import com.example.mygamelist.GameTopAppBar
+import com.example.mygamelist.GoldenYellow
+import com.example.mygamelist.InProgressBlueBorder
+import com.example.mygamelist.Yellow
+import com.example.mygamelist.data.local.Game
+import com.example.mygamelist.data.local.GameStatus
 
 
 @Composable
 fun FormScreen(
-    games: SnapshotStateList<com.example.mygamelist.Game>,
+    games: SnapshotStateList<Game>,
     editIndex: Int?,
     onSave: () -> Unit,
     onCancel: () -> Unit

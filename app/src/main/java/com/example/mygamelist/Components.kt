@@ -20,6 +20,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.mygamelist.data.local.Game
+import com.example.mygamelist.data.local.GameStatus
 
 
 @OptIn(ExperimentalMaterial3Api::class)

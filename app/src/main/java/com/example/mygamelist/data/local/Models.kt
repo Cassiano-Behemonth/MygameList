@@ -1,4 +1,4 @@
-package com.example.mygamelist
+package com.example.mygamelist.data.local
 
 data class Game(
     val name: String,

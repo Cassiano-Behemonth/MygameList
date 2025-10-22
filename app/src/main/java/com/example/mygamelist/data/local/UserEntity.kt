@@ -1,4 +1,4 @@
-package com.example.mygamelist
+package com.example.mygamelist.data.local
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

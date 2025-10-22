@@ -1,4 +1,4 @@
-package com.example.mygamelist
+package com.example.mygamelist.ui.games
 
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
@@ -14,12 +14,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.mygamelist.Black
+import com.example.mygamelist.GameTopAppBar
+import com.example.mygamelist.GoldenYellow
+import com.example.mygamelist.Yellow
+import com.example.mygamelist.blackGradient
 
 
 @Composable

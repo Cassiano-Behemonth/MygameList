@@ -1,10 +1,9 @@
-package com.example.mygamelist
+package com.example.mygamelist.data.local
 
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.mygamelist.GameStatus
 
 @Entity(tableName = "games")
 data class GameEntity(
