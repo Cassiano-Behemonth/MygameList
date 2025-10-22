@@ -3,12 +3,9 @@ package com.example.mygamelist.ui.games
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,71 +16,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.mygamelist.Black
-import com.example.mygamelist.DarkGray
-import com.example.mygamelist.GameCard
-import com.example.mygamelist.GameTopAppBar
-import com.example.mygamelist.LightYellow
-import com.example.mygamelist.Yellow
-import com.example.mygamelist.blackGradient
-import com.example.mygamelist.data.local.Game
+import com.example.mygamelist.*
 import com.example.mygamelist.data.local.User
-import com.example.mygamelist.yellowGradient
-
-
-@Composable
-fun HomeScreen(
-    games: List<Game>,
-    registeredUser: User?,
-    onAddClick: () -> Unit,
-    onProfileClick: () -> Unit,
-    onEditClick: (Int) -> Unit,
-    onDeleteClick: (Int) -> Unit
-) {
-    Scaffold(
-        topBar = {
-            GameTopAppBar(
-                title = "MEUS JOGOS",
-                showProfileIcon = true,
-                onProfileClick = onProfileClick
-            )
-        },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = onAddClick,
-                modifier = Modifier
-                    .size(64.dp)
-                    .shadow(12.dp, RoundedCornerShape(32.dp)),
-                containerColor = Yellow,
-                contentColor = Black,
-                shape = RoundedCornerShape(32.dp)
-            ) {
-                Icon(
-                    Icons.Default.Add,
-                    contentDescription = "Adicionar Jogo",
-                    modifier = Modifier.size(32.dp)
-                )
-            }
-        }
-    ) { paddingValues ->
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            itemsIndexed(games) { index, game ->
-                GameCard(
-                    game = game,
-                    onEditClick = { onEditClick(index) },
-                    onDeleteClick = { onDeleteClick(index) }
-                )
-            }
-        }
-    }
-}
-
 
 @Composable
 fun ProfileScreen(
@@ -120,7 +54,6 @@ fun ProfileScreen(
             }
 
             Spacer(modifier = Modifier.height(32.dp))
-
 
             Text(
                 text = "BEM-VINDO",
