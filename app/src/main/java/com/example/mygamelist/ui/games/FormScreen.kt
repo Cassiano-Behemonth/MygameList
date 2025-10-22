@@ -39,6 +39,16 @@ fun FormScreen(
         )
     }
 
+    LaunchedEffect(achievementsCompleted, totalAchievements) {
+        val done = achievementsCompleted.toIntOrNull() ?: 0
+        val total = totalAchievements.toIntOrNull() ?: 0
+        completionPercentage = if (total > 0) {
+            ((done.toFloat() / total.toFloat()) * 100).toInt().coerceIn(0, 100).toString()
+        } else {
+            "0"
+        }
+    }
+
     Column(modifier = Modifier.fillMaxSize()) {
         GameTopAppBar(if (editGame != null) "EDITAR JOGO" else "NOVO JOGO")
 
@@ -123,21 +133,19 @@ fun FormScreen(
 
             item { Spacer(modifier = Modifier.height(16.dp)) }
 
+            // 🔹 Campo de porcentagem automático (somente leitura)
             item {
                 OutlinedTextField(
                     value = completionPercentage,
-                    onValueChange = {
-                        val filtered = it.filter { char -> char.isDigit() }
-                        if (filtered.isEmpty() || filtered.toInt() <= 100) {
-                            completionPercentage = filtered
-                        }
-                    },
+                    onValueChange = {}, // não permite edição manual
                     label = { Text("PORCENTAGEM DE CONCLUSÃO (%)") },
                     modifier = Modifier.fillMaxWidth(),
+                    readOnly = true,
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = Yellow,
                         focusedLabelColor = GoldenYellow,
-                        cursorColor = Yellow
+                        cursorColor = Yellow,
+                        disabledTextColor = Color.Black
                     ),
                     shape = RoundedCornerShape(16.dp)
                 )
