@@ -47,12 +47,12 @@ fun AppNavigation() {
     val navController = rememberNavController()
     val context = LocalContext.current
 
-    // Inicialização do banco de dados e repositórios
+
     val database = remember { MyGameListDatabase.getDatabase(context) }
     val gameRepository = remember { GameRepository(database.gameDao()) }
     val userRepository = remember { UserRepository(database.userDao()) }
 
-    // ViewModels
+
     val userViewModel: UserViewModel = viewModel(
         factory = UserViewModelFactory(userRepository)
     )
@@ -60,21 +60,21 @@ fun AppNavigation() {
         factory = GameViewModelFactory(gameRepository)
     )
 
-    // Estados
+
     val currentUser by userViewModel.currentUser.collectAsState()
     val currentUserId by userViewModel.currentUserId.collectAsState()
     val authState by userViewModel.authState.collectAsState()
     val games by gameViewModel.games.collectAsState()
     val gameUiState by gameViewModel.uiState.collectAsState()
 
-    // Observar mudanças no userId para carregar jogos
+
     LaunchedEffect(currentUserId) {
         if (currentUserId > 0) {
             gameViewModel.loadGames(currentUserId)
         }
     }
 
-    // Lidar com estados de autenticação
+
     LaunchedEffect(authState) {
         when (authState) {
             is AuthState.Success -> {
@@ -104,7 +104,7 @@ fun AppNavigation() {
         }
     }
 
-    // Lidar com estados de operações de jogos
+
     LaunchedEffect(gameUiState) {
         when (gameUiState) {
             is GameUiState.Success -> {
